@@ -1,4 +1,4 @@
-## Source : git clone https://github.com/sandiperdiansah/wedding-invitation
+## Source : https://github.com/sandiperdiansah/wedding-invitation
 
 ## Fitur ✨
 
