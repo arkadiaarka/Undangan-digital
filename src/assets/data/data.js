@@ -2,18 +2,20 @@ export const data = {
     bride: {
         L: {
             id: 1,
-            name: 'Lorem Ipsum',
-            child: 'Putra ke lorem',
-            father: 'Lorem',
-            mother: 'Ipsum',
+            name: 'Muhammad Arief Syafrudin',
+            shortName: 'Arief',
+            child: 'Putra Pertama',
+            father: 'Shodikin',
+            mother: 'Makrisah',
             image: './src/assets/images/cowo.png'
         },
         P: {
             id: 2,
-            name: 'Ipsum Lorem',
-            child: 'Putri ke lorem',
-            father: 'Lorem',
-            mother: 'Ipsum',
+            name: 'Nur Azizah',
+            shortName: 'Azizah',
+            child: 'Putri Pertama',
+            father: 'Mustofa',
+            mother: 'Titik Khumaidah',
             image: './src/assets/images/cewe.png'
         },
 
@@ -22,31 +24,31 @@ export const data = {
 
     time: {
         marriage: {
-            year: '2030',
-            month: 'November',
-            date: '14',
-            day: 'Kamis',
+            yyear: '2025',
+            month: 'Agustus',
+            date: '13',
+            day: 'Rabu',
             hours: {
                 start: '08.00',
                 finish: 'Selesai'
             }
         },
         reception: {
-            year: '2024',
-            month: 'November',
-            date: '14',
-            day: 'Kamis',
+            year: '2025',
+            month: 'Agustus',
+            date: '13',
+            day: 'Rabu',
             hours: {
                 start: '11.00',
                 finish: 'Selesai'
             }
         },
-        address: 'Kp. Lorem, RT 000/ RW 000, Desa.Lorem, Kec.Ipsum, Kab.Lorem, Lorem (1234)'
+        address: 'Jl Raya Bugel, RT 05/ RW 02, Kedung, Bugel, Kedung, Jepara, Jawa Tengah',
     },
 
     link: {
-        calendar: 'https://calendar.app.google/oSVLRMYC79GzuA4f9',
-        map: 'https://maps.app.goo.gl/q1Ask2Jgd4ekiiKBA',
+        calendar: 'https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NDc3NWtndTR1aDQ3YjRvN2I3MDY1YjFjN2ogc3lhZnJ1ZGluYXJpZWYxODJAbQ&tmsrc=syafrudinarief182%40gmail.com',
+        map: 'https://maps.app.goo.gl/af9YXXXx5Lm3M6QXA',
     },
 
     galeri: [
@@ -75,15 +77,15 @@ export const data = {
     bank: [
         {
             id: 1,
-            name: 'Lorem Ipsum',
-            icon: './src/assets/images/bca.png',
-            rekening: '12345678'
+            name: 'Nur Azizah',
+            icon: './src/assets/images/mandiri.png',
+            rekening: '1840005464480'
         },
         {
             id: 2,
-            name: 'Ipsum Lorem',
-            icon: './src/assets/images/bri.png',
-            rekening: '12345678'
+            name: 'Nur Azizah',
+            icon: './src/assets/images/seabank.png',
+            rekening: '901576398682'
         },
     ],
 
