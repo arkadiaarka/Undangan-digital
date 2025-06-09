@@ -115,7 +115,7 @@ export const welcome = () => {
             id: generateRandomId(), //
             name: guestName,
             status: status === 'y' ? 'Hadir' : 'Tidak Hadir', // Simpan sebagai 'Hadir' atau 'Tidak Hadir' di Sheets
-            message: confirmationMessage,
+             message: '', // Set message menjadi string kosong untuk konfirmasi kehadiran
             date: getCurrentDateTime(), //
             color: generateRandomColor(), //
         };
