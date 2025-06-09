@@ -1,3 +1,5 @@
+/* src/assets/styles/global.css */
+
 :root {
     --primary-font-color: '#212529';
     --bg-color: #f8f9fa;
@@ -30,12 +32,19 @@ html {
 body {
     font-family: 'Josefin Sans', sans-serif;
     color: var(--primary-font-color);
-    overflow-y: hidden;
+    overflow-y: hidden; /* Defaultnya hidden */
 }
 
 body.active {
-    overflow-y: auto;
+    overflow-y: auto; /* Aktifkan scrolling saat body mendapat kelas active (untuk home screen) */
 }
+
+/* --- BARU: Kelas untuk mencegah scrolling saat popup aktif --- */
+body.popup-active {
+    overflow: hidden !important; /* Paksa hidden untuk mencegah scrolling */
+}
+/* --- AKHIR BARU --- */
+
 
 body::-webkit-scrollbar {
     display: none;
@@ -92,7 +101,7 @@ p {
     }
 }
 
-/* src/assets/styles/global.css (atau file popup.css baru) */
+/* src/assets/styles/global.css (or a new popup.css) */
 
 .attendance-popup-overlay {
     position: fixed;
@@ -104,7 +113,7 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 100; /* Lebih tinggi dari elemen lain */
+    z-index: 100; /* Higher than other elements */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -127,7 +136,7 @@ p {
 
 .attendance-popup h3 {
     font-size: 1.8rem;
-    font-family: var(--sacramento); /* Menggunakan font Sacramento dari global.css */
+    font-family: var(--sacramento);
     margin-bottom: 1rem;
 }
 
@@ -143,7 +152,6 @@ p {
 }
 
 .attendance-popup .popup-buttons button {
-    /* Gaya dasar seperti tombol Buka Undangan */
     padding: 0.5rem 1.5rem; /* Menyesuaikan padding agar tombol lebih kompak, tapi tetap nyaman */
     border: 1px solid #000; /* Tambahkan border hitam */
     background-color: #fff; /* Latar belakang putih */
@@ -159,22 +167,14 @@ p {
     gap: 0.4rem;
 }
 
-.attendance-popup .popup-buttons button#confirm-hadir {
-    background-color: #4CAF50; /* Hijau */
-    color: white;
-}
-
+/* Gaya hover untuk tombol "Hadir" */
 .attendance-popup .popup-buttons button#confirm-hadir:hover {
     background-color: #4CAF50; /* Latar belakang hijau saat hover */
     color: white; /* Teks putih saat hover */
     border-color: #4CAF50; /* Border juga berubah warna hijau */
 }
 
-.attendance-popup .popup-buttons button#confirm-tidak-hadir {
-    background-color: #f44336; /* Merah */
-    color: white;
-}
-
+/* Gaya hover untuk tombol "Tidak Hadir" */
 .attendance-popup .popup-buttons button#confirm-tidak-hadir:hover {
     background-color: #f44336; /* Latar belakang merah saat hover */
     color: white; /* Teks putih saat hover */
