@@ -138,22 +138,28 @@ export const welcome = () => {
 
     if (confirmHadirButton) {
         confirmHadirButton.addEventListener('click', async () => {
-            await sendAttendanceConfirmation('y'); // Panggil fungsi untuk mengirim data kehadiran
-            removeClassElement(attendancePopupOverlay, 'active'); // Sembunyikan popup
+            // --- PERUBAHAN DI SINI ---
+            removeClassElement(attendancePopupOverlay, 'active'); // Popup hilang duluan
+            await sendAttendanceConfirmation('y'); // Lalu kirim data di background
+            // --- AKHIR PERUBAHAN ---
+
             const statusSelect = document.querySelector('#status');
             if (statusSelect) {
-                statusSelect.value = 'y'; // Tetap atur status di form komentar (jika user mau lanjut komen)
+                statusSelect.value = 'y';
             }
         });
     }
 
     if (confirmTidakHadirButton) {
         confirmTidakHadirButton.addEventListener('click', async () => {
-            await sendAttendanceConfirmation('n'); // Panggil fungsi untuk mengirim data kehadiran
-            removeClassElement(attendancePopupOverlay, 'active'); // Sembunyikan popup
+            // --- PERUBAHAN DI SINI ---
+            removeClassElement(attendancePopupOverlay, 'active'); // Popup hilang duluan
+            await sendAttendanceConfirmation('n'); // Lalu kirim data di background
+            // --- AKHIR PERUBAHAN ---
+
             const statusSelect = document.querySelector('#status');
             if (statusSelect) {
-                statusSelect.value = 'n'; // Tetap atur status di form komentar (jika user mau lanjut komen)
+                statusSelect.value = 'n';
             }
         });
     }
