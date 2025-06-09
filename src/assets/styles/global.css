@@ -1,5 +1,3 @@
-/* src/assets/styles/global.css */
-
 :root {
     --primary-font-color: '#212529';
     --bg-color: #f8f9fa;
@@ -32,19 +30,12 @@ html {
 body {
     font-family: 'Josefin Sans', sans-serif;
     color: var(--primary-font-color);
-    overflow-y: hidden; /* Defaultnya hidden */
+    overflow-y: hidden;
 }
 
 body.active {
-    overflow-y: auto; /* Aktifkan scrolling saat body mendapat kelas active (untuk home screen) */
+    overflow-y: auto;
 }
-
-/* --- BARU: Kelas untuk mencegah scrolling saat popup aktif --- */
-body.popup-active {
-    overflow: hidden !important; /* Paksa hidden untuk mencegah scrolling */
-}
-/* --- AKHIR BARU --- */
-
 
 body::-webkit-scrollbar {
     display: none;
@@ -100,106 +91,3 @@ p {
         transform: translateY(0.8rem);
     }
 }
-
-/* src/assets/styles/global.css (or a new popup.css) */
-
-.attendance-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Background overlay gelap */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100; /* Higher than other elements */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    /* --- Penambahan untuk blur background (backdrop-filter) --- */
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    /* --- Akhir penambahan --- */
-}
-
-.attendance-popup-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.attendance-popup {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    text-align: center;
-    /* --- Perubahan pada box-shadow dan penambahan border --- */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Bayangan sedikit lebih tebal dan terlihat timbul */
-    border: 1px solid rgba(0, 0, 0, 0.1); /* Outline tipis berwarna hitam */
-    /* --- Akhir perubahan --- */
-    max-width: 90%;
-    width: 400px;
-
-    /* --- Penambahan untuk animasi popup itu sendiri --- */
-    transform: scale(0.8); /* Ukuran awal saat tersembunyi (misal 80% dari ukuran normal) */
-    opacity: 0; /* Awalnya tidak terlihat */
-    transition: transform 0.3s ease, opacity 0.3s ease; /* Transisi untuk perubahan skala dan opasitas */
-    /* --- Akhir penambahan --- */
-}
-
-/* Ketika overlay aktif, animasikan popup di dalamnya */
-.attendance-popup-overlay.active .attendance-popup {
-    transform: scale(1); /* Kembali ke ukuran normal (100%) saat aktif */
-    opacity: 1; /* Jadi terlihat penuh */
-}
-
-
-.attendance-popup h3 {
-    font-size: 1.8rem;
-    font-family: var(--sacramento);
-    margin-bottom: 1rem;
-}
-
-.attendance-popup p {
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
-}
-
-.attendance-popup .popup-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
-/* ----------- BAGIAN YANG DIUBAH (UNTUK TOMBOL HADIR/TIDAK HADIR) ----------- */
-.attendance-popup .popup-buttons button {
-    /* Gaya dasar seperti tombol Buka Undangan */
-    padding: 0.5rem 1.5rem; /* Menyesuaikan padding agar tombol lebih kompak, tapi tetap nyaman */
-    border: 1px solid #000; /* Tambahkan border hitam */
-    background-color: #fff; /* Latar belakang putih */
-    color: #000; /* Teks hitam */
-    border-radius: 15px; /* Mengikuti border-radius tombol Buka Undangan */
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Transisi untuk semua properti */
-    /* Opsional: Untuk centering teks atau jika nanti ada ikon seperti tombol buka undangan */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-}
-
-/* Gaya hover untuk tombol "Hadir" */
-.attendance-popup .popup-buttons button#confirm-hadir:hover {
-    background-color: #4CAF50; /* Latar belakang hijau saat hover */
-    color: white; /* Teks putih saat hover */
-    border-color: #4CAF50; /* Border juga berubah warna hijau */
-}
-
-/* Gaya hover untuk tombol "Tidak Hadir" */
-.attendance-popup .popup-buttons button#confirm-tidak-hadir:hover {
-    background-color: #f44336; /* Latar belakang merah saat hover */
-    color: white; /* Teks putih saat hover */
-    border-color: #f44336; /* Border juga berubah warna merah */
-}
-/* ----------- AKHIR BAGIAN YANG DIUBAH ----------- */

@@ -1,4 +1,3 @@
-/* src/css/welcome.css */
 .welcome {
     width: 100%;
     height: 100vh;
@@ -54,36 +53,10 @@
 }
 
 .welcome figure figcaption {
+    font-size: var(--fontSize-heading-base);
     font-family: var(--sacramento);
     font-weight: 400;
     margin-top: 0.5rem;
-    text-align: center; /* tengahin teks */
-    line-height: 1.3;
-}
-
-.welcome figure figcaption .brideLName,
-.welcome figure figcaption .bridePName {
-    font-size: 1.8rem;
-    /* --- START PERUBAHAN --- */
-    /* Berikan transform dasar untuk kedua nama */
-    transform: translateX(-25px); /* Geser ke kiri 10px sebagai default */
-    /* --- AKHIR PERUBAHAN --- */
-}
-
-/* --- BARU: Gaya spesifik untuk nama kedua (misal: Nur Azizah) --- */
-.welcome figure figcaption .bridePName {
-    /* Aturan ini akan menimpa transform untuk .bridePName */
-    transform: translateX(25px); /* Geser ke kanan 10px */
-}
-/* --- AKHIR BARU --- */
-
-
-.welcome figure figcaption .ampersand {
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 0.3rem 0;
-    /* Posisi & di tengah */
-    text-align: center;
 }
 
 .welcome p span {

@@ -1,5 +1,3 @@
-/* src/css/mediaQueries.css */
-
 @media screen and (max-width: 768px) {
     header nav {
         display: flex;
@@ -8,46 +6,6 @@
     .home svg {
         bottom: -5rem;
     }
-
-    /* --- Penyesuaian font size dan ketebalan untuk nama mempelai di halaman Home pada mobile (TETAP SAMA) --- */
-    .home figure figcaption .brideLName,
-    .home figure figcaption .bridePName {
-        font-size: 1.4rem; /* Ukuran font lebih kecil untuk mobile */
-        font-weight: 600; /* Sedikit lebih tebal juga untuk mobile */
-    }
-    .home figure figcaption .ampersand {
-        font-size: 1.6rem; /* Ukuran font simbol '&' lebih kecil untuk mobile */
-        font-weight: bold; /* Tetap tebal untuk simbol '&' di mobile */
-    }
-    /* Opsional: Sesuaikan ukuran font heading utama di Home jika perlu */
-    .home h2 { /* "Undangan Pernikahan" */
-        font-size: 1.8rem;
-    }
-    .home h3 { /* Tanggal */
-        font-size: 1rem;
-    }
-    /* --- Akhir Penyesuaian Nama Mempelai --- */
-
-
-    /* --- START PERUBAHAN (Menghapus gaya countdown di mobile) --- */
-    /* Hapus blok ini jika ada:
-    .home .home-time {
-        gap: 0.8rem;
-    }
-    .home .home-time div {
-        width: 3.5rem;
-        height: 3.5rem;
-        border-radius: 8px;
-    }
-    .home .home-time div p {
-        font-size: 1.2rem;
-    }
-    .home .home-time div p span {
-        font-size: 0.6rem;
-    }
-    */
-    /* --- AKHIR PERUBAHAN --- */
-
 
     .bride, .time{
         padding: 6rem 1.4rem 8rem;
@@ -68,8 +26,8 @@
     }
 
     .bride i:nth-of-type(3) {
-        top: 54rem;
         right: 1.4rem;
+        top: 55rem;
     }
 
     .bride i:nth-of-type(4) {
@@ -116,10 +74,9 @@
         margin-top: -1rem;
     }
 
-    .galeri .container figure {
-        height: 14rem; /* Atur tinggi figure di mobile */
+    .galeri .container figure img {
+        height: 14rem;
     }
-    /* Hapus blok .galeri .container figure img karena sudah diatur di galeri.css */
 
     .galeri .container ul {
         bottom: 5rem;

@@ -1,5 +1,3 @@
-## Source : https://github.com/sandiperdiansah/wedding-invitation
-
 ## Fitur ✨
 
 - 📊 **Penyimpanan Data**: Menggunakan Google Sheets API untuk menyimpan dan mengelola data undangan.
@@ -19,11 +17,11 @@
 
 1. **Unduh proyek atau kloning repositori**:
     ```bash
-    git clone https://github.com/arkadiaarka/Undangan-digital.git
+    git clone https://github.com/sandiperdiansah/wedding-invitation.git
     ```
 
 2. **Catatan**: Anda memiliki dua pilihan untuk menggunakan kode sumber ini:
-    - **Tanpa Modifikasi**: Buka file [data.js](https://github.com/arkadiaarka/Undangan-digital.git/blob/main/src/assets/data/data.js) untuk langsung menggunakannya.
+    - **Tanpa Modifikasi**: Buka file [data.js](https://github.com/SandiPerdiansah/wedding-invitation/blob/main/src/assets/data/data.js) untuk langsung menggunakannya.
     - **Dengan Kustomisasi**: Sesuaikan tampilan dan kontennya sesuai kebutuhan Anda.
 
 ### Cara Mengedit `data.js` ✏️

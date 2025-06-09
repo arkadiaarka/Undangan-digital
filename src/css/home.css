@@ -1,4 +1,3 @@
-/* src/css/home.css */
 .home {
     width: 100%;
     height: 100vh;
@@ -37,74 +36,42 @@
 
 .home figure figcaption {
     margin: 0 0 0.5rem;
-    font-weight: 400; /* Font weight dasar figcaption */
+    font-weight: 400;
     font-family: var(--sacramento);
-    /* HAPUS font-size: var(--fontSize-heading-lg); dari sini */
-    line-height: 1.3; /* Untuk jarak antar baris */
+    font-size: var(--fontSize-heading-lg);
 }
-
-/* --- GAYA UNTUK NAMA MEMPELAI DI HOME (TETAP SAMA) --- */
-.home figure figcaption .brideLName,
-.home figure figcaption .bridePName {
-    font-size: 1.8rem; /* Ukuran font sama persis dengan welcome screen */
-    font-weight: 600; /* Sedikit lebih tebal */
-    /* color: var(--text-color); <-- Ini akan diatur oleh global CSS */
-    transform: translateX(-25px); /* Geser ke kiri 10px sebagai default */
-}
-
-.home figure figcaption .bridePName {
-    transform: translateX(25px); /* Geser ke kanan 10px */
-}
-
-.home figure figcaption .ampersand {
-    font-size: 2rem; /* Ukuran font simbol '&' sama dengan welcome screen */
-    font-weight: bold; /* Tetap tebal untuk simbol '&' */
-    margin: 0.3rem 0;
-    text-align: center;
-    /* color: var(--text-color); <-- Ini akan diatur oleh global CSS */
-}
-/* --- AKHIR GAYA NAMA MEMPELAI DI HOME --- */
-
 
 .home h3 {
     font-weight: 500;
 }
 
-/* --- START PERUBAHAN (Mengembalikan gaya countdown) --- */
 .home .home-time {
-    margin-top: 1rem; /* Kembali ke jarak default */
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem; /* Kembali ke jarak default antar kotak */
+    gap: 1rem;
 }
 
 .home .home-time div {
-    width: 3rem; /* Kembali ke ukuran default */
-    height: 3rem; /* Kembali ke ukuran default */
+    width: 3rem;
+    height: 3rem;
     display: flex;
-    /* Hapus flex-direction: column; */
     align-items: center;
     justify-content: center;
-    border: 1px solid #000; /* Kembali ke border default */
-    border-radius: 8px; /* Kembali ke border-radius default */
-    /* Hapus background-color dan box-shadow */
+    border: 1px solid #000;
+    border-radius: 8px;
 }
 
 .home .home-time div p {
-    font-size: 0.8rem; /* Kembali ke ukuran font default */
-    /* Hapus font-weight: bold; */
-    line-height: normal; /* Kembali ke line-height default */
-    /* Hapus color */
+    font-size: 0.8rem;
+    line-height: normal;
 }
 
 .home .home-time div p span {
-    font-size: 0.6rem; /* Kembali ke ukuran font default */
-    /* Hapus font-weight: normal; */
+    font-size: 0.6rem;
     margin-top: 0.2rem;
-    /* Hapus color dan opacity */
 }
-/* --- AKHIR PERUBAHAN --- */
 
 .home a {
     padding: 0.5rem 1rem;

@@ -1,5 +1,3 @@
-// src/js/home.js
-
 import {data} from "../assets/data/data.js";
 import {monthNameToNumber} from "../utils/helper.js";
 
@@ -8,18 +6,11 @@ export const home = () => {
     const [_, figureElement, timeElement, homeTime, calendarAnchor] = homeContainer.children;
 
     const generateFigureContent = ({bride}) => {
-        const {L, P, couple: coupleImage} = bride;
-        // --- START PERUBAHAN ---
-        // Hapus .toUpperCase() dari sini
-        const shortBrideLName = L.shortName; // Cukup L.shortName
-        const shortBridePName = P.shortName; // Cukup P.shortName
-        // --- AKHIR PERUBAHAN ---
+        const {L: {name: brideLName}, P: {name: bridePName}, couple: coupleImage} = bride;
         return `
             <img src="${coupleImage}" alt="couple animation">
             <figcaption>
-                <div class="brideLName">${shortBrideLName}</div>
-                <div class="ampersand">&amp;</div>
-                <div class="bridePName">${shortBridePName}</div>
+                ${brideLName.split(' ')[0]} & ${bridePName.split(' ')[0]}
             </figcaption>`;
     };
 
@@ -56,6 +47,7 @@ export const home = () => {
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         if (distance < 0) {
+            clearInterval(intervalId);
             homeTime.innerHTML = generateCountdownMarkup(0, 0, 0, 0);
         } else {
             homeTime.innerHTML = generateCountdownMarkup(days, hours, minutes, seconds);
@@ -67,7 +59,7 @@ export const home = () => {
         const endTime = new Date(`${String(year)}-${String(monthNameToNumber(month)).padStart(2, '0')}-${String(date).padStart(2, '0')}T00:00:00`);
 
         updateCountdown(endTime, homeTime);
-        const intervalId = setInterval(() => updateCountdown(endTime, homeTime), 1000);
+        setInterval(() => updateCountdown(endTime, homeTime), 1000);
     };
 
     const initializeHome = () => {
