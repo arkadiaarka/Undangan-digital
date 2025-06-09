@@ -37,12 +37,34 @@
     display: none;
 }
 
+.galeri .container figure {
+    width: 100%;
+    margin: 0 auto;
+    display: flex; /* Tetap flex untuk centering */
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Penting untuk positioning gambar di dalamnya */
+    height: 35rem; /* Berikan tinggi tetap untuk figure */
+    overflow: hidden; /* Sembunyikan gambar yang tidak aktif yang posisinya absolute */
+    border-radius: 15px; /* Pindahkan border-radius ke figure */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -1px 1px rgba(0, 0, 0, 0.1); /* Pindahkan shadow ke figure */
+}
+
 .galeri .container figure img {
     width: 100%;
-    height: 35rem;
+    height: 100%; /* Isi tinggi figure */
     object-fit: cover;
-    border-radius: 15px;
-    transition: var(--transition-small);
+    position: absolute; /* Posisikan gambar secara absolut */
+    top: 0;
+    left: 0;
+    opacity: 0; /* Sembunyikan secara default */
+    visibility: hidden; /* Sembunyikan dari screen reader saat tidak aktif */
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* Transisi untuk fade */
+}
+
+.galeri .container figure img.active {
+    opacity: 1; /* Tampilkan gambar aktif */
+    visibility: visible; /* Jadikan terlihat */
 }
 
 .galeri .container ul {

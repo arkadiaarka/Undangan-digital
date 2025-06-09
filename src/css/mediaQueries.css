@@ -116,9 +116,10 @@
         margin-top: -1rem;
     }
 
-    .galeri .container figure img {
-        height: 14rem;
+    .galeri .container figure {
+        height: 14rem; /* Atur tinggi figure di mobile */
     }
+    /* Hapus blok .galeri .container figure img karena sudah diatur di galeri.css */
 
     .galeri .container ul {
         bottom: 5rem;
