@@ -27,8 +27,8 @@ export const welcome = () => {
     const {L, P, couple: coupleImage} = bride; // Ambil objek L dan P langsung
     // --- START PERUBAHAN NAMA PANGGILAN (Welcome Screen) ---
     // Gunakan shortName yang baru dari data.js dan jadikan kapital
-    const shortBrideLName = L.shortName();
-    const shortBridePName = P.shortName();
+    const shortBrideLName = L.shortName;
+    const shortBridePName = P.shortName;
     // --- AKHIR PERUBAHAN NAMA PANGGILAN ---
     return `
         <img src="${coupleImage}" alt="couple animation">
