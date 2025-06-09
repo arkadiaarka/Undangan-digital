@@ -59,6 +59,21 @@
     margin-top: 0.5rem;
 }
 
+.welcome figure figcaption .brideLName,
+.welcome figure figcaption .bridePName {
+    font-size: 1.8rem;
+    /* --- START PERUBAHAN --- */
+    /* Berikan transform dasar untuk kedua nama */
+    transform: translateX(-25px); /* Geser ke kiri 10px sebagai default */
+    /* --- AKHIR PERUBAHAN --- */
+}
+
+/* --- BARU: Gaya spesifik untuk nama kedua (misal: Nur Azizah) --- */
+.welcome figure figcaption .bridePName {
+    /* Aturan ini akan menimpa transform untuk .bridePName */
+    transform: translateX(25px); /* Geser ke kanan 10px */
+}
+
 .welcome p span {
     font-size: 2rem;
     margin: 1rem 0;

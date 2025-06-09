@@ -17,24 +17,25 @@ export const welcome = () => {
     const nameInput = document.querySelector('#name');
 
 
-    // --- START PERBAIKAN: Definisikan elemen-elemen ini secara eksplisit di awal fungsi welcome() ---
-    // Pindahkan definisi ini ke sini agar selalu tersedia saat fungsi welcome() dijalankan
+    // --- START PERUBAHAN PENTING (Memperbaiki ReferenceError dan Mendefinisikan Elemen) ---
+    // Definisikan elemen-elemen ini secara eksplisit di awal fungsi welcome()
+    // Ini memperbaiki error `figureElement is not defined`
     const figureElement = welcomeElement.querySelector('figure');
     const weddingToElement = welcomeElement.querySelector('p');
     const openWeddingButton = welcomeElement.querySelector('button[aria-label="Buka Undangan"]');
-    // --- AKHIR PERBAIKAN ---
+    // --- AKHIR PERUBAHAN PENTING ---
 
     const [audioMusic, audioButton] = document.querySelector('.audio').children;
     const [iconButton] = audioButton.children;
 
 
    const generateFigureContent = (bride) => {
-    const {L, P, couple: coupleImage} = bride;
-    // --- START PERUBAHAN ---
-    // Hapus .toUpperCase() dari sini
-    const shortBrideLName = L.shortName; // Cukup L.shortName
-    const shortBridePName = P.shortName; // Cukup P.shortName
-    // --- AKHIR PERUBAHAN ---
+    const {L, P, couple: coupleImage} = bride; // Ambil objek L dan P langsung
+    // --- START PERUBAHAN NAMA PANGGILAN (Welcome Screen) ---
+    // Gunakan shortName yang baru dari data.js dan jadikan kapital
+    const shortBrideLName = L.shortName;
+    const shortBridePName = P.shortName;
+    // --- AKHIR PERUBAHAN NAMA PANGGILAN ---
     return `
         <img src="${coupleImage}" alt="couple animation">
         <figcaption>
@@ -85,28 +86,8 @@ export const welcome = () => {
         });
     };
 
-    // Fungsi handleInvitationOpen yang disederhanakan (karena tidak ada GS submit dari sini dulu)
-    const handleInvitationOpen = () => {
-        addClassElement(document.body, 'active');
-        addClassElement(welcomeElement, 'hide');
-
-        setTimeout(() => {
-            addClassElement(homeElement, 'active');
-            addClassElement(navbarElement, 'active');
-            addClassElement(audioButton, 'show');
-            removeClassElement(iconButton, 'bx-play-circle');
-            addClassElement(iconButton, 'bx-pause-circle');
-            // audioMusic.play(); // Dihapus dari sini, dipindahkan ke confirm buttons
-        }, 1500);
-
-        setTimeout(() => {
-            addClassElement(audioButton, 'active');
-        }, 3000);
-    };
-
     // --- START PERUBAHAN LOGIKA openWeddingButton (Kontrol Popup, Scroll, Audio) ---
-    // Pastikan tombol ditemukan sebelum menambahkan event listener
-    if (openWeddingButton) {
+    if (openWeddingButton) { // Pastikan tombol ditemukan
         openWeddingButton.addEventListener('click', () => {
             addClassElement(document.body, 'active');
             addClassElement(welcomeElement, 'hide');
@@ -138,6 +119,25 @@ export const welcome = () => {
     }
     // --- AKHIR PERUBAHAN LOGIKA openWeddingButton ---
 
+
+    // Fungsi handleInvitationOpen yang disederhanakan (karena tidak ada GS submit dari sini dulu)
+    const handleInvitationOpen = () => {
+        addClassElement(document.body, 'active');
+        addClassElement(welcomeElement, 'hide');
+
+        setTimeout(() => {
+            addClassElement(homeElement, 'active');
+            addClassElement(navbarElement, 'active');
+            addClassElement(audioButton, 'show');
+            removeClassElement(iconButton, 'bx-play-circle');
+            addClassElement(iconButton, 'bx-pause-circle');
+            // audioMusic.play(); // Dihapus dari sini, dipindahkan ke confirm buttons
+        }, 1500);
+
+        setTimeout(() => {
+            addClassElement(audioButton, 'active');
+        }, 3000);
+    };
 
     // --- START PERUBAHAN LOGIKA CONFIRM BUTTONS (Kontrol Popup, Scroll, Audio) ---
     if (confirmHadirButton) {
@@ -175,12 +175,14 @@ export const welcome = () => {
 
 
     const initializeWelcome = () => {
+        // Hapus atau abaikan baris ini karena figureElement dan weddingToElement sudah didefinisikan di awal fungsi welcome()
+        // const weddingToElement = document.querySelector('.welcome p');
         figureElement.innerHTML = generateFigureContent(data.bride);
-        generateParameterContent();
+        // generateParameterContent(weddingToElement); // weddingToElement sudah di scope atas, tidak perlu argumen
+        generateParameterContent(); // Panggil tanpa argumen jika weddingToElement sudah di scope welcome()
         addClassElement(welcomeElement, 'active');
     }
 
-    // Panggil fungsi inisialisasi di akhir agar semua elemen dan fungsi sudah terdefinisi
     initializeWelcome();
     initialAudio();
 }

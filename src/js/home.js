@@ -8,11 +8,12 @@ export const home = () => {
     const [_, figureElement, timeElement, homeTime, calendarAnchor] = homeContainer.children;
 
     const generateFigureContent = ({bride}) => {
-        const {L: {name: brideLName}, P: {name: bridePName}, couple: coupleImage} = bride;
-        // --- PERUBAHAN DI SINI ---
-        const shortBrideLName = brideLName.split(' ').pop().toUpperCase(); // Ambil kata terakhir dan kapital
-        const shortBridePName = bridePName.split(' ').pop().toUpperCase(); // Ambil kata terakhir dan kapital
-        // --- AKHIR PERUBAHAN ---
+        const {L, P, couple: coupleImage} = bride; // Ambil objek L dan P langsung
+        // --- START PERUBAHAN NAMA PANGGILAN (Home Screen) ---
+        // Gunakan shortName yang baru dari data.js dan jadikan kapital
+        const shortBrideLName = L.shortName;
+        const shortBridePName = P.shortName;
+        // --- AKHIR PERUBAHAN NAMA PANGGILAN ---
         return `
             <img src="${coupleImage}" alt="couple animation">
             <figcaption>
@@ -55,7 +56,6 @@ export const home = () => {
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         if (distance < 0) {
-            // pastikan intervalId didefinisikan di scope yang benar
             homeTime.innerHTML = generateCountdownMarkup(0, 0, 0, 0);
         } else {
             homeTime.innerHTML = generateCountdownMarkup(days, hours, minutes, seconds);
