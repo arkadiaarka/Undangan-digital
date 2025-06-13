@@ -25,7 +25,7 @@ Pembaharuan :
 
 1. **Unduh proyek atau kloning repositori**:
     ```bash
-    git clone https://github.com/arkadiaarka/Undangan-digital.git
+    git clone [https://github.com/arkadiaarka/Undangan-digital.git](https://github.com/arkadiaarka/Undangan-digital.git)
     ```
 
 2. **Catatan**: Anda memiliki dua pilihan untuk menggunakan kode sumber ini:
@@ -38,9 +38,9 @@ Pembaharuan :
 - **Tautan**:
     - 📅 **Kalender**: Tambahkan URL acara di Google Calendar. Buat acara, tambahkan judul dan deskripsi, lalu simpan. Klik "Bagikan" untuk mendapatkan tautan yang dapat dibagikan.
 
-  ![Membuat Acara](src/assets/images/readme1.png)
-  ![Membagikan Acara](src/assets/images/readme2.png)
-  ![Salin Tautan](src/assets/images/readme3.png)
+    ![Membuat Acara](src/assets/images/readme1.png)
+    ![Membagikan Acara](src/assets/images/readme2.png)
+    ![Salin Tautan](src/assets/images/readme3.png)
 
     - 📍 **Peta**: Masukkan URL lokasi acara dari Google Maps.
 - 🖼️ **Galeri**: Anda bisa menambahkan lebih dari 5 gambar, pastikan ukurannya dioptimalkan untuk web.
@@ -53,111 +53,111 @@ Pembaharuan :
 ![Pengaturan Spreadsheet](src/assets/images/readme4.png)
 
 2. **Atur Tabel di Google Sheets**:
-   ![Tabel Spreadsheet](src/assets/images/readme5.png)
-   Struktur tabel: (id, nama, status, pesan, tanggal, warna)
+    ![Tabel Spreadsheet](src/assets/images/readme5.png)
+    Struktur tabel: (id, nama, status, pesan, tanggal, warna)
 
-### 3. Tambahkan Google Apps Script
+3. **Tambahkan Google Apps Script**:
+    - Buka file Google Sheets, masuk ke "Ekstensi" > "Apps Script", lalu tambahkan kode berikut:
 
-* Buka file Google Sheets masuk ke "Ekstensi" > "Apps Script" lalu tambahkan kode berikut:
+    ```javascript
+    const SHEET_NAME = 'comentar'; // Pastikan nama sheet sesuai
 
-```javascript
-const SHEET_NAME = 'comentar'; // Pastikan nama sheet sesuai
+    const doGet = () => {
+      try {
+        const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+        const [, ...data] = sheet.getDataRange().getValues();
 
-const doGet = () => {
-  try {
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
-    const [, ...data] = sheet.getDataRange().getValues();
+        const comentar = data.map(([id, name, status, message, date, color]) => ({
+          id,
+          name,
+          status,
+          message,
+          date,
+          color
+        }));
 
-    const comentar = data.map(([id, name, status, message, date, color]) => ({
-      id,
-      name,
-      status,
-      message,
-      date,
-      color
-    }));
+        const response = {
+          status: 200,
+          message: 'Berhasil mengambil data',
+          comentar
+        };
 
-    const response = {
-      status: 200,
-      message: 'Berhasil mengambil data',
-      comentar
+        return ContentService
+          .createTextOutput(JSON.stringify(response))
+          .setMimeType(ContentService.MimeType.JSON);
+      } catch (error) {
+        return ContentService
+          .createTextOutput(JSON.stringify({ status: 500, message: `Kesalahan: ${error.message}` })) // Menggunakan error.message
+          .setMimeType(ContentService.MimeType.JSON);
+      }
     };
 
-    return ContentService
-      .createTextOutput(JSON.stringify(response))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch (error) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: 500, message: `Kesalahan: ${error.message}` })) // Menggunakan error.message
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-};
+    const doPost = (e) => {
+      try {
+        const { id, name, status, message, date, color } = JSON.parse(e.postData.contents);
+        const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
 
-const doPost = (e) => {
-  try {
-    const { id, name, status, message, date, color } = JSON.parse(e.postData.contents);
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+        if (!sheet) {
+          throw new Error(`Sheet "${SHEET_NAME}" tidak ditemukan`);
+        }
 
-    if (!sheet) {
-      throw new Error(`Sheet "${SHEET_NAME}" tidak ditemukan`);
-    }
+        const dataRange = sheet.getDataRange();
+        const values = dataRange.getValues();
+        const headers = values[0]; // Baris pertama adalah header
 
-    const dataRange = sheet.getDataRange();
-    const values = dataRange.getValues();
-    const headers = values[0]; // Baris pertama adalah header
+        // Cari baris berdasarkan 'name' (Kolom B)
+        // Asumsi 'name' ada di kolom kedua (indeks 1)
+        const nameColumnIndex = headers.indexOf('nama'); // Cari indeks kolom 'nama'
+        if (nameColumnIndex === -1) {
+            throw new Error("Kolom 'nama' tidak ditemukan di sheet.");
+        }
 
-    // Cari baris berdasarkan 'name' (Kolom B)
-    // Asumsi 'name' ada di kolom kedua (indeks 1)
-    const nameColumnIndex = headers.indexOf('nama'); // Cari indeks kolom 'nama'
-    if (nameColumnIndex === -1) {
-        throw new Error("Kolom 'nama' tidak ditemukan di sheet.");
-    }
+        let rowIndexToUpdate = -1;
+        for (let i = 1; i < values.length; i++) { // Mulai dari baris kedua (indeks 1) untuk data
+          if (values[i][nameColumnIndex] === name) {
+            rowIndexToUpdate = i;
+            break;
+          }
+        }
 
-    let rowIndexToUpdate = -1;
-    for (let i = 1; i < values.length; i++) { // Mulai dari baris kedua (indeks 1) untuk data
-      if (values[i][nameColumnIndex] === name) {
-        rowIndexToUpdate = i;
-        break;
+        if (rowIndexToUpdate !== -1) {
+          // Perbarui baris yang sudah ada
+          // Pastikan urutan kolom sesuai dengan yang Anda inginkan
+          const idColumnIndex = headers.indexOf('id');
+          const statusColumnIndex = headers.indexOf('status');
+          const pesanColumnIndex = headers.indexOf('pesan');
+          const tanggalColumnIndex = headers.indexOf('tanggal');
+          const warnaColumnIndex = headers.indexOf('warna');
+
+          // Update nilai sel pada baris yang ditemukan
+          if (idColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, idColumnIndex + 1).setValue(id);
+          if (statusColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, statusColumnIndex + 1).setValue(status);
+          if (pesanColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, pesanColumnIndex + 1).setValue(message);
+          if (tanggalColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, tanggalColumnIndex + 1).setValue(date);
+          if (warnaColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, warnaColumnIndex + 1).setValue(color);
+          
+          return ContentService
+            .createTextOutput(JSON.stringify({ status: 200, message: 'Data berhasil diperbarui' }))
+            .setMimeType(ContentService.MimeType.JSON);
+
+        } else {
+          // Tambahkan baris baru jika tidak ditemukan
+          sheet.appendRow([id, name, status, message, date, color]);
+
+          return ContentService
+            .createTextOutput(JSON.stringify({ status: 200, message: 'Data berhasil ditambahkan' }))
+            .setMimeType(ContentService.MimeType.JSON);
+        }
+
+      } catch (error) {
+        return ContentService
+          .createTextOutput(JSON.stringify({ status: 500, message: `Kesalahan: ${error.message}` }))
+          .setMimeType(ContentService.MimeType.JSON);
       }
-    }
+    };
+    ```
 
-    if (rowIndexToUpdate !== -1) {
-      // Perbarui baris yang sudah ada
-      // Pastikan urutan kolom sesuai dengan yang Anda inginkan
-      const idColumnIndex = headers.indexOf('id');
-      const statusColumnIndex = headers.indexOf('status');
-      const pesanColumnIndex = headers.indexOf('pesan');
-      const tanggalColumnIndex = headers.indexOf('tanggal');
-      const warnaColumnIndex = headers.indexOf('warna');
-
-      // Update nilai sel pada baris yang ditemukan
-      if (idColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, idColumnIndex + 1).setValue(id);
-      if (statusColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, statusColumnIndex + 1).setValue(status);
-      if (pesanColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, pesanColumnIndex + 1).setValue(message);
-      if (tanggalColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, tanggalColumnIndex + 1).setValue(date);
-      if (warnaColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, warnaColumnIndex + 1).setValue(color);
-      
-      return ContentService
-        .createTextOutput(JSON.stringify({ status: 200, message: 'Data berhasil diperbarui' }))
-        .setMimeType(ContentService.MimeType.JSON);
-
-    } else {
-      // Tambahkan baris baru jika tidak ditemukan
-      sheet.appendRow([id, name, status, message, date, color]);
-
-      return ContentService
-        .createTextOutput(JSON.stringify({ status: 200, message: 'Data berhasil ditambahkan' }))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
-
-  } catch (error) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: 500, message: `Kesalahan: ${error.message}` }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-};
-
-5. **Deploy Script**:
+4. **Deploy Script**:
     - Klik "Deploy" lalu pilih "Deployment Baru".
     - Pilih "Web app" dalam pengaturan deployment.
 
