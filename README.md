@@ -1,11 +1,11 @@
 ## SOURCE: https://github.com/sdprdh/wedding-invitation 
 
 Pembaharuan :
-Add Popup Konfirmasi Kehadiran
-Add Gusian Blur
-Fixed Pesan di google Sheets
-Update Script Google Sheets
-And More...
+- ** Add Popup Konfirmasi Kehadiran
+- ** Add Gusian Blur
+- ** Fixed Pesan di google Sheets
+- ** Update Script Google Sheets
+- ** And More...
 
 ## Fitur ✨
 - 📊 **Penyimpanan Data**: Menggunakan Google Sheets API untuk menyimpan dan mengelola data undangan.
