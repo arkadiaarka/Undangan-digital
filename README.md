@@ -61,58 +61,108 @@ Pembaharuan :
     - Buka file Google Sheets, masuk ke "Ekstensi" > "Apps Script", lalu tambahkan kode berikut:
 
     ```javascript
-    const SHEET_NAME = 'comentar';
+    const SHEET_NAME = 'comentar'; // Pastikan nama sheet sesuai
 
-    const doGet = () => {
-      try {
-        const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
-        const [, ...data] = sheet.getDataRange().getValues();
+const doGet = () => {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+    const [, ...data] = sheet.getDataRange().getValues();
 
-        const comentar = data.map(([id, name, status, message, date, color]) => ({
-          id,
-          name,
-          status,
-          message,
-          date,
-          color
-        }));
+    const comentar = data.map(([id, name, status, message, date, color]) => ({
+      id,
+      name,
+      status,
+      message,
+      date,
+      color
+    }));
 
-        const response = {
-          status: 200,
-          message: 'Berhasil mengambil data',
-          comentar
-        };
-
-        return ContentService
-          .createTextOutput(JSON.stringify(response))
-          .setMimeType(ContentService.MimeType.JSON);
-      } catch (error) {
-        return ContentService
-          .createTextOutput(JSON.stringify({ status: 500, message: `Kesalahan: ${error}` }))
-          .setMimeType(ContentService.MimeType.JSON);
-      }
+    const response = {
+      status: 200,
+      message: 'Berhasil mengambil data',
+      comentar
     };
 
-    const doPost = (e) => {
-      try {
-        const { id, name, status, message, date, color } = JSON.parse(e.postData.contents);
-        const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+    return ContentService
+      .createTextOutput(JSON.stringify(response))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 500, message: `Kesalahan: ${error.message}` })) // Menggunakan error.message
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+};
 
-        if (!sheet) {
-          throw new Error(`Sheet "${SHEET_NAME}" tidak ditemukan`);
-        }
+const doPost = (e) => {
+  try {
+    const { id, name, status, message, date, color } = JSON.parse(e.postData.contents);
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
 
-        sheet.appendRow([id, name, status, message, date, color]);
+    if (!sheet) {
+      throw new Error(`Sheet "${SHEET_NAME}" tidak ditemukan`);
+    }
 
-        return ContentService
-          .createTextOutput(JSON.stringify({ status: 200, message: 'Data berhasil ditambahkan' }))
-          .setMimeType(ContentService.MimeType.JSON);
-      } catch (error) {
-        return ContentService
-          .createTextOutput(JSON.stringify({ status: 500, message: `Kesalahan: ${error}` }))
-          .setMimeType(ContentService.MimeType.JSON);
+    const dataRange = sheet.getDataRange();
+    const values = dataRange.getValues();
+    const headers = values[0]; // Baris pertama adalah header
+
+    // Cari baris berdasarkan 'name' (Kolom B)
+    // Asumsi 'name' ada di kolom kedua (indeks 1)
+    const nameColumnIndex = headers.indexOf('nama'); // Cari indeks kolom 'nama'
+    if (nameColumnIndex === -1) {
+        throw new Error("Kolom 'nama' tidak ditemukan di sheet.");
+    }
+
+    let rowIndexToUpdate = -1;
+    for (let i = 1; i < values.length; i++) { // Mulai dari baris kedua (indeks 1) untuk data
+      if (values[i][nameColumnIndex] === name) {
+        rowIndexToUpdate = i;
+        break;
       }
-    };
+    }
+
+    if (rowIndexToUpdate !== -1) {
+      // Perbarui baris yang sudah ada
+      // Pastikan urutan kolom sesuai dengan yang Anda inginkan
+      const idColumnIndex = headers.indexOf('id');
+      const statusColumnIndex = headers.indexOf('status');
+      const pesanColumnIndex = headers.indexOf('pesan');
+      const tanggalColumnIndex = headers.indexOf('tanggal');
+      const warnaColumnIndex = headers.indexOf('warna');
+
+      // Update nilai sel pada baris yang ditemukan
+      if (idColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, idColumnIndex + 1).setValue(id);
+      if (statusColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, statusColumnIndex + 1).setValue(status);
+      if (pesanColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, pesanColumnIndex + 1).setValue(message);
+      if (tanggalColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, tanggalColumnIndex + 1).setValue(date);
+      if (warnaColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, warnaColumnIndex + 1).setValue(color);
+      
+      // Jika Anda ingin mempertahankan nilai ID yang sudah ada, Anda bisa melakukan ini:
+      // if (idColumnIndex !== -1 && values[rowIndexToUpdate][idColumnIndex] !== '') {
+      //     // Jangan update ID jika sudah ada
+      // } else if (idColumnIndex !== -1) {
+      //     sheet.getRange(rowIndexToUpdate + 1, idColumnIndex + 1).setValue(id);
+      // }
+
+      return ContentService
+        .createTextOutput(JSON.stringify({ status: 200, message: 'Data berhasil diperbarui' }))
+        .setMimeType(ContentService.MimeType.JSON);
+
+    } else {
+      // Tambahkan baris baru jika tidak ditemukan
+      sheet.appendRow([id, name, status, message, date, color]);
+
+      return ContentService
+        .createTextOutput(JSON.stringify({ status: 200, message: 'Data berhasil ditambahkan' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 500, message: `Kesalahan: ${error.message}` }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+};
     ```
 
 5. **Deploy Script**:
