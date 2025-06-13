@@ -1,3 +1,4 @@
+// src/services/comentarService.js
 import {data} from "../assets/data/data.js";
 
 export const comentarService = {
@@ -23,14 +24,18 @@ export const comentarService = {
         try {
             const response = await fetch(data.api, {
                 method: 'POST',
-                mode: 'no-cors',
+                mode: 'no-cors', // Penting: Mode ini mencegah membaca response body
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(comentar),
             });
 
-            return await response.json();
+            // *** PERUBAHAN DI SINI ***
+            // Karena mode: 'no-cors', kita tidak bisa membaca response.json()
+            // Kita hanya bisa berasumsi berhasil jika tidak ada network error.
+            // Google Apps Script akan tetap menerima data meskipun kita tidak membaca responsenya.
+            return { status: 'success', message: 'Data sent (response not readable due to no-cors)' };
 
         } catch (error) {
             console.error('Post error:', error);
