@@ -56,12 +56,12 @@ Pembaharuan :
    ![Tabel Spreadsheet](src/assets/images/readme5.png)
    Struktur tabel: (id, nama, status, pesan, tanggal, warna)
 
-4. **Tambahkan Google Apps Script**:
-     **Tambahkan Google Apps Script**:
-    - Buka file Google Sheets, masuk ke "Ekstensi" > "Apps Script", lalu tambahkan kode berikut:
+### 3. Tambahkan Google Apps Script
 
-    ```javascript
-    const SHEET_NAME = 'comentar'; // Pastikan nama sheet sesuai
+* Buka file Google Sheets masuk ke "Ekstensi" > "Apps Script" lalu tambahkan kode berikut:
+
+```javascript
+const SHEET_NAME = 'comentar'; // Pastikan nama sheet sesuai
 
 const doGet = () => {
   try {
@@ -137,13 +137,6 @@ const doPost = (e) => {
       if (tanggalColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, tanggalColumnIndex + 1).setValue(date);
       if (warnaColumnIndex !== -1) sheet.getRange(rowIndexToUpdate + 1, warnaColumnIndex + 1).setValue(color);
       
-      // Jika Anda ingin mempertahankan nilai ID yang sudah ada, Anda bisa melakukan ini:
-      // if (idColumnIndex !== -1 && values[rowIndexToUpdate][idColumnIndex] !== '') {
-      //     // Jangan update ID jika sudah ada
-      // } else if (idColumnIndex !== -1) {
-      //     sheet.getRange(rowIndexToUpdate + 1, idColumnIndex + 1).setValue(id);
-      // }
-
       return ContentService
         .createTextOutput(JSON.stringify({ status: 200, message: 'Data berhasil diperbarui' }))
         .setMimeType(ContentService.MimeType.JSON);
@@ -163,7 +156,6 @@ const doPost = (e) => {
       .setMimeType(ContentService.MimeType.JSON);
   }
 };
-    ```
 
 5. **Deploy Script**:
     - Klik "Deploy" lalu pilih "Deployment Baru".
